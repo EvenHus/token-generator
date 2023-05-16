@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "f8ffd619-9be3-45d2-8117-01bdeebab1fc",
+		"name": "Figma API Superpower",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31971"
+	},
+	"item": [
+		{
+			"name": "Webhook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_type\": \"FILE_VERSION_UPDATE\",\n    \"team_id\": \"861858440497086462\",\n    \"endpoint\": \"https://events.hookdeck.com/e/src_2S0Ty7raB5hu\",\n    \"passcode\": \"cruisestarSuperhook2022\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.figma.com/v2/webhooks",
+					"protocol": "https",
+					"host": [
+						"api",
+						"figma",
+						"com"
+					],
+					"path": [
+						"v2",
+						"webhooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all active webhooks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.figma.com/v2/teams/:team_id/webhooks",
+					"protocol": "https",
+					"host": [
+						"api",
+						"figma",
+						"com"
+					],
+					"path": [
+						"v2",
+						"teams",
+						":team_id",
+						"webhooks"
+					],
+					"variable": [
+						{
+							"key": "team_id",
+							"value": "861858440497086462"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete webhook",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.figma.com/v2/webhooks/:webhook_id",
+					"protocol": "https",
+					"host": [
+						"api",
+						"figma",
+						"com"
+					],
+					"path": [
+						"v2",
+						"webhooks",
+						":webhook_id"
+					],
+					"variable": [
+						{
+							"key": "webhook_id",
+							"value": "453016"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{FIGMA_SUPERPOWER_TOKEN}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-Figma-Token",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
