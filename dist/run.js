@@ -41,7 +41,7 @@ function getFigmaTokensForBrand(brand) {
         let designTokens = yield (0, figmaTokens_1.default)(brand, figmaFile, 'Design Tokens');
         console.log(JSON.stringify(designTokens, null, 4));
         let tailwindCSS = (0, transformCSSTailwind_1.default)(designTokens);
-        yield (0, figmaFile_1.writeFile)(tailwindCSS, brand.name, 'tw-css-extend');
+        yield (0, figmaFile_1.writeFile)(tailwindCSS, brand.name, 'tw-tokens');
     });
 }
 generateTokens();

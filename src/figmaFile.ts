@@ -1,13 +1,13 @@
 import fetch from 'node-fetch';
 import * as dotenv from 'dotenv'
 import * as fs from 'fs';
-import {promises as fsPromises} from 'fs';
+import { promises as fsPromises } from 'fs';
 
 dotenv.config()
 
 const mockFilePrefix = 'figma-file';
 
-async function getLocalFile(filename:string) : Promise<string | undefined> {
+async function getLocalFile(filename: string): Promise<string | undefined> {
     try {
         return await fsPromises.readFile(filename, 'utf8');
     } catch (e) {
@@ -16,7 +16,7 @@ async function getLocalFile(filename:string) : Promise<string | undefined> {
     return undefined;
 }
 
-export async function getFigmaFile(brand:IBrand) : Promise<any> {
+export async function getFigmaFile(brand: IBrand): Promise<any> {
     if (process.env.FIGMA_FILE_MOCK_ENABLED) {
         console.log(`Getting figma file for brand: ${brand.name} from local mock file.`)
         let fileName = `${'./public/'}${mockFilePrefix}-${brand.name}.json`
@@ -25,13 +25,13 @@ export async function getFigmaFile(brand:IBrand) : Promise<any> {
     console.log(`Getting figma file for brand: ${brand.name} from Figma API`)
     const response = await fetch(`https://api.figma.com/v1/files/${brand.figmaFileId}`, {
         method: 'get',
-        headers: {'Content-Type': 'application/json', 'X-Figma-Token':`${process.env.FIGMA_PERSONAL_TOKEN}`}
+        headers: { 'Content-Type': 'application/json', 'X-Figma-Token': `${process.env.FIGMA_PERSONAL_TOKEN}` }
     });
 
     return await response.text();
 }
 
-export async function getFileNodes(brand:IBrand, nodeIds:string) : Promise<any> {
+export async function getFileNodes(brand: IBrand, nodeIds: string): Promise<any> {
     if (process.env.FIGMA_FILE_MOCK_ENABLED) {
         console.log(`Getting figma style file for brand: ${brand.name} from local mock file.`)
         let dir = './public/';
@@ -43,13 +43,13 @@ export async function getFileNodes(brand:IBrand, nodeIds:string) : Promise<any> 
     console.log(`Fetching nodes: ${nodeIds} from URI: ${uri}`);
     const response = await fetch(uri, {
         method: 'get',
-        headers: {'Content-Type': 'application/json', 'X-Figma-Token':`${process.env.FIGMA_PERSONAL_TOKEN}`}
+        headers: { 'Content-Type': 'application/json', 'X-Figma-Token': `${process.env.FIGMA_PERSONAL_TOKEN}` }
     });
 
     return await response.text();
 }
 
-export async function writeFile(content:string, brand:string, cssIdentifier:string) {
+export async function writeFile(content: string, brand: string, cssIdentifier: string) {
     let dir = './generatedFiles/';
     let fileName = `${dir}${cssIdentifier}-${brand}.json`
     if (fs.existsSync(`${dir}`)) {
@@ -61,11 +61,11 @@ export async function writeFile(content:string, brand:string, cssIdentifier:stri
         }
     } else {
         try {
-            fsPromises.mkdir(dir).then(async function() {
+            fsPromises.mkdir(dir).then(async function () {
                 console.log(`Directory: ${dir} created successfully`);
                 await fsPromises.writeFile(`${dir}${cssIdentifier}-${brand}.json`, content, 'utf8');
                 console.log(`File: ${fileName} written successfully.`)
-            }).catch(function() {
+            }).catch(function () {
                 console.log('failed to create directory');
             });
         } catch (e) {
@@ -74,7 +74,7 @@ export async function writeFile(content:string, brand:string, cssIdentifier:stri
     }
 }
 
-export async function writeMockFile(content:string, brand:IBrand) {
+export async function writeMockFile(content: string, brand: IBrand) {
     let dir = './public/';
     let fileName = `${dir}${mockFilePrefix}-${brand.name}.json`
 
@@ -117,12 +117,12 @@ export async function writeMockFile(content:string, brand:IBrand) {
     await writeMockNodeFile(figmaJson, brand);
 }
 
-async function writeMockNodeFile(figmaJson:any, brand:IBrand) {
+async function writeMockNodeFile(figmaJson: any, brand: IBrand) {
     let dir = './public/';
     let fileNameNodeStyles = `${dir}${mockFilePrefix}-${brand.name}-styles.json`;
 
     let counter = 0;
-    let styleKeysParams = Object.keys(figmaJson.styles).map(function(k) {
+    let styleKeysParams = Object.keys(figmaJson.styles).map(function (k) {
         counter++
         return k;
     }).join(',');

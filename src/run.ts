@@ -25,7 +25,7 @@ async function getFigmaTokensForBrand(brand: IBrand) {
     let designTokens = await getFigmaDesignTokens(brand, figmaFile, 'Design Tokens');
     console.log(JSON.stringify(designTokens, null, 4));
     let tailwindCSS = transformCSSToTailwind(designTokens);
-    await writeFile(tailwindCSS, brand.name, 'tw-css-extend');
+    await writeFile(tailwindCSS, brand.name, 'tw-tokens');
 }
 
 generateTokens();

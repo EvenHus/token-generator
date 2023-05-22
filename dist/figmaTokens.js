@@ -158,6 +158,7 @@ function colorsStyleMap(figmaNodesJson) {
     }, []));
 }
 function spacingMap(figmaTokenValues) {
+    console.log("SPACING MAP", figmaTokenValues);
     return sortTokens(figmaTokenValues.map((item) => ({
         id: item.id,
         name: item.name,

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function transformCSSToTailwind(designTokens) {
-    console.log('*** Generating Tailwind CSS theme ***');
+    console.log('*** Generating Tailwind CSS theme ***', designTokens);
     let extendBrand = {
         colors: designTokens.styles.colorStyles.reduce((next, item) => {
             if (item.colorHex) {
