@@ -3,9 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const config = {
     brands: [
         {
-            name: 'portofolio',
+            name: 'forest',
             figmaFileId: 'S0K2rdHfw9ilUoefiCvjZx'
         },
+        {
+            name: 'flair',
+            figmaFileId: 'mILqMH57RKvVNJJERWbGiD'
+        }
     ],
     tokenTypes: {
         spacing: {

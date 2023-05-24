@@ -1,9 +1,13 @@
 const config: IFigTokConfig = {
     brands: [
         {
-            name: 'portofolio',
+            name: 'forest',
             figmaFileId: 'S0K2rdHfw9ilUoefiCvjZx'
         },
+        {
+            name: 'flair',
+            figmaFileId: 'mILqMH57RKvVNJJERWbGiD'
+        }
     ],
     tokenTypes: {
         spacing: {
