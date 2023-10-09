@@ -6,10 +6,6 @@ const config = {
             name: 'forest',
             figmaFileId: 'S0K2rdHfw9ilUoefiCvjZx'
         },
-        {
-            name: 'flair',
-            figmaFileId: 'mILqMH57RKvVNJJERWbGiD'
-        }
     ],
     tokenTypes: {
         spacing: {

@@ -1,10 +1,11 @@
-import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 import config from './config'
-import { getFigmaFile, writeFile } from "./figmaFile";
+import { getFigmaFile, getFigmaVariables, writeFile } from "./figmaFile";
 import getFigmaDesignTokens from "./figmaTokens";
+import getSortedVariablesByBrand from './figmaVariables';
 import transformCSSToTailwind from "./transformCSSTailwind";
+import { log } from 'console';
 
 
 async function generateTokens() {
@@ -15,17 +16,27 @@ async function generateTokens() {
                 await getFigmaTokensForBrand(item);
             }
         } else {
-            await getFigmaTokensForBrand(item); //If FIGMA_FILE_ID is not set in enviroment, then process all brands.
+            await getFigmaTokensForBrand(item);
         }
     });
 }
 
 async function getFigmaTokensForBrand(brand: IBrand) {
+    log("Getting Figma tokens for brand: " + brand.name)
+    let variablesFile = await getFigmaVariables(brand);
     let figmaFile = await getFigmaFile(brand);
-    let designTokens = await getFigmaDesignTokens(brand, figmaFile, 'Design Tokens');
-    console.log(JSON.stringify(designTokens, null, 4));
+    log("Done")
+
+    log(`Sorting variables for ${brand.name}`)
+    let variablesByBrand = await getSortedVariablesByBrand(variablesFile, brand);
+    let designTokens = await getFigmaDesignTokens(brand, figmaFile, variablesByBrand);
+    log("Done")
+
+    log("Transforming CSS to Tailwind")
     let tailwindCSS = transformCSSToTailwind(designTokens);
-    await writeFile(tailwindCSS, brand.name, 'tw-tokens');
+    log("Done")
+    log("Writing design tokens to file")
+    await writeFile(tailwindCSS, brand.name, 'tailwind');
 }
 
 generateTokens();

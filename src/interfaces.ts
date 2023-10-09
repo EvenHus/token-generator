@@ -1,22 +1,26 @@
-interface IDesignTokens{
-    spacing:ISpacing[],
-    radius:IRadius[],
-    shadow:IShadow[],
-    border:IBorder[],
-    styles:IStyles
+interface IDesignTokens {
+    spacing: ISpacing[],
+    radius: IRadius[],
+    // shadow:IShadow[],
+    border: IBorder[],
+    // styles: IStyles
+    color: IColorStyle[]
+    textStyles: ITextStyle[]
 }
 
 interface IBaseToken {
     id: string,
     name: string,
     nameJson: string
+    resolvedType?: string
+    codeSyntax?: string
 }
 
 interface ISpacing extends IBaseToken {
     spacing: number
 }
 
-interface IRadius extends IBaseToken{
+interface IRadius extends IBaseToken {
     radius: number
 }
 
@@ -39,7 +43,6 @@ interface IBorder extends IBaseToken {
 
 interface IStyles {
     textStyles: ITextStyle[],
-    colorStyles: IColorStyle[]
 }
 
 interface ITextStyle extends IBaseToken {
@@ -73,24 +76,37 @@ interface IGradientStop {
 interface IFigTokConfig {
     brands: IBrand[],
     tokenTypes: ITokenTypes
+    variableTypes: IVariableTypes
 }
 
 interface ITokenTypes {
-    spacing:ITokenTypeConfig,
-    radius:ITokenTypeConfig,
-    shadows:ITokenTypeConfig,
-    borders:ITokenTypeConfig,
-    textStyles:ITextStyleTypeConfig,
-    colorStyles:IColorStyleTypeConfig
+    spacing: ITokenTypeConfig,
+    radius: ITokenTypeConfig,
+    shadows: ITokenTypeConfig,
+    borders: ITokenTypeConfig,
+    textStyles: ITextStyleTypeConfig,
+    color: IColorStyleTypeConfig
+}
+
+interface IVariableTypes {
+    color: IVariableTypeConfig,
+    spacing: IVariableTypeConfig,
+    radius: IVariableTypeConfig,
+    shadows: IVariableTypeConfig,
+}
+
+interface IVariableTypeConfig {
+    variableCollectionName: string,
 }
 
 interface ITokenTypeConfig {
     tokenNamePrefix: string,
     tokenNameSeparator: string[],
     tokenFrameName: string,
+    collectionName: string
 }
 
-interface IColorStyleTypeConfig {
+interface IColorStyleTypeConfig extends ITokenTypeConfig {
     tokenNameSeparator: string[],
     includeFigmaTopFolders: string[],
     figmaType: string
@@ -103,5 +119,8 @@ interface ITextStyleTypeConfig {
 
 interface IBrand {
     name: string,
-    figmaFileId: string
+    figmaFileId: string,
+    variableFileId: string
 }
+
+

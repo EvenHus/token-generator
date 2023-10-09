@@ -2,42 +2,65 @@ const config: IFigTokConfig = {
     brands: [
         {
             name: 'forest',
-            figmaFileId: 'S0K2rdHfw9ilUoefiCvjZx'
+            figmaFileId: 'S0K2rdHfw9ilUoefiCvjZx',
+            variableFileId: 'S0K2rdHfw9ilUoefiCvjZx'
         },
         {
             name: 'flair',
-            figmaFileId: 'mILqMH57RKvVNJJERWbGiD'
+            figmaFileId: 'mILqMH57RKvVNJJERWbGiD',
+            variableFileId: 'mILqMH57RKvVNJJERWbGiD'
         }
     ],
+    variableTypes: {
+        color: {
+            variableCollectionName: 'Brand',
+        },
+        spacing: {
+            variableCollectionName: 'Spacing',
+        },
+        radius: {
+            variableCollectionName: 'Border Radius',
+        },
+        shadows: {
+            variableCollectionName: 'Shadows',
+        },
+    },
     tokenTypes: {
         spacing: {
             tokenNamePrefix: '\\*',
             tokenNameSeparator: ['*', '/', '-'],
-            tokenFrameName: 'Spacing'
+            tokenFrameName: 'Spacing',
+            collectionName: 'space'
         },
         radius: {
             tokenNamePrefix: '\\*',
             tokenNameSeparator: ['*', '/', '-'],
-            tokenFrameName: 'BorderRadius'
+            tokenFrameName: 'BorderRadius',
+            collectionName: 'borderradius'
         },
         shadows: {
             tokenNamePrefix: '\\*',
             tokenNameSeparator: ['*', '/', '-'],
-            tokenFrameName: 'Shadows'
+            tokenFrameName: 'Shadows',
+            collectionName: 'shadow'
         },
         borders: {
             tokenNamePrefix: '\\*',
             tokenNameSeparator: ['*', '/', '-'],
-            tokenFrameName: 'BorderWeight'
+            tokenFrameName: 'BorderWeight',
+            collectionName: 'borderweight'
         },
         textStyles: {
             tokenNameSeparator: ['/'],
             figmaType: 'TEXT',
         },
-        colorStyles: {
+        color: {
             tokenNameSeparator: ['/'],
             includeFigmaTopFolders: ['Semantic', 'Base'],
-            figmaType: 'RECTANGLE'
+            figmaType: 'RECTANGLE',
+            tokenFrameName: 'Color',
+            tokenNamePrefix: '\\*',
+            collectionName: 'brand'
         },
     }
 }

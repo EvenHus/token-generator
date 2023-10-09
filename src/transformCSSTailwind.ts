@@ -1,44 +1,43 @@
 import config from "./config";
 
 export default function transformCSSToTailwind(designTokens: IDesignTokens): string {
-    console.log('*** Generating Tailwind CSS theme ***');
-
     let extendBrand = {
-        colors: designTokens.styles.colorStyles.reduce((next, item) => {
-            if (item.colorHex) {
-                return { ...next, [item.nameJson]: item.colorHex };
-            } else if (item.gradient) {
-                const stops = item.gradient.stops
+        colors: designTokens.color.reduce((next, item) => {
+            return { ...next, [item.nameJson]: item.colorHex };
+            // if (item.colorHex) {
+            //     return { ...next, [item.nameJson]: item.colorHex };
+            // } else if (item.gradient) {
+            //     const stops = item.gradient.stops
 
-                const colorStopTokens = stops.reduce((colorTokens, stop, index) => {
-                    const stopPercent = Math.round((index / (stops.length - 1)) * 100)
+            //     const colorStopTokens = stops.reduce((colorTokens, stop, index) => {
+            //         const stopPercent = Math.round((index / (stops.length - 1)) * 100)
 
-                    return {
-                        ...colorTokens,
-                        [`${item.nameJson}${stopPercent}`]: stop.colorHex,
-                    }
-                }, {})
+            //         return {
+            //             ...colorTokens,
+            //             [`${item.nameJson}${stopPercent}`]: stop.colorHex,
+            //         }
+            //     }, {})
 
-                return {
-                    ...next,
-                    ...colorStopTokens,
-                };
-            }
-            return next;
+            //     return {
+            //         ...next,
+            //         ...colorStopTokens,
+            //     };
+            // }
+            // return next;
         }, {}),
-        fontFamily: designTokens.styles.textStyles.reduce((next, item) => {
+        fontFamily: designTokens.textStyles.reduce((next, item) => {
             return { ...next, [item.nameJson]: item.fontFamily };
         }, {}),
-        letterSpacing: designTokens.styles.textStyles.reduce((next, item) => {
+        letterSpacing: designTokens.textStyles.reduce((next, item) => {
             return { ...next, [item.nameJson]: formatNumber(item.letterSpacing) };
         }, {}),
-        fontWeight: designTokens.styles.textStyles.reduce((next, item) => {
+        fontWeight: designTokens.textStyles.reduce((next, item) => {
             return { ...next, [item.nameJson]: item.fontWeight };
         }, {}),
-        lineHeight: designTokens.styles.textStyles.reduce((next, item) => {
+        lineHeight: designTokens.textStyles.reduce((next, item) => {
             return { ...next, [item.nameJson]: formatNumber(item.lineHeightPx) };
         }, {}),
-        fontSize: designTokens.styles.textStyles.reduce((next, item) => {
+        fontSize: designTokens.textStyles.reduce((next, item) => {
             return { ...next, [item.nameJson]: formatNumber(item.fontSize) };
         }, {}),
         spacing: designTokens.spacing.reduce((next, item) => {
@@ -50,10 +49,10 @@ export default function transformCSSToTailwind(designTokens: IDesignTokens): str
         borderRadius: designTokens.radius.reduce((next, item) => {
             return { ...next, [item.nameJson]: formatNumber(item.radius) };
         }, {}),
-        boxShadow: designTokens.shadow.reduce((next, item) => {
-            ///* offset-x | offset-y | blur-radius | spread-radius | color */
-            return { ...next, [item.nameJson]: `${formatNumber(item.shadow.offset.x)} ${formatNumber(item.shadow.offset.y)} ${formatNumber(item.shadow.radius)} ${formatNumber(item.shadow.spread)} ${item.shadow.color}` };
-        }, {})
+        // boxShadow: designTokens.shadow.reduce((next, item) => {
+        //     ///* offset-x | offset-y | blur-radius | spread-radius | color */
+        //     return { ...next, [item.nameJson]: `${formatNumber(item.shadow.offset.x)} ${formatNumber(item.shadow.offset.y)} ${formatNumber(item.shadow.radius)} ${formatNumber(item.shadow.spread)} ${item.shadow.color}` };
+        // }, {})
     }
 
     function formatNumber(px: number, unit: "rem" | "px" = "rem"): string {
@@ -79,7 +78,6 @@ export default function transformCSSToTailwind(designTokens: IDesignTokens): str
 
     //Button components...
 
-    console.log(themeOutput);
     return themeOutput;
 }
 
